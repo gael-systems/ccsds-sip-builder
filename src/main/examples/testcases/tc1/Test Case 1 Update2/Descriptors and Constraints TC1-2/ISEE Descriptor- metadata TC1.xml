@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<transferObjectTypeDescriptor xmlns:x0="http://www.w3.org/2001/XMLSchema">
+	<identification>
+		<descriptorModelID>CCSD0014</descriptorModelID>
+		<descriptorModelVersion>V1.0</descriptorModelVersion>
+		<descriptorID>ISEE_Mag_Field_Metadata_TC1</descriptorID>
+		<producerSourceID>NASA_ESA_Source1</producerSourceID>
+	</identification>
+	<description>
+		<transferObjectTypeTitle>Selected ISEE 1,2 Magnetic_Field Metadata</transferObjectTypeTitle>
+		<transferObjectTypeDescription>Selected  ISEE 1,2 Magnetic_Field Metadata grouped by Spacecraft and then by Yearly Directories (1977only) for days 295-300 inclusive.   Only Data (no Metadata) Data Objects</transferObjectTypeDescription>
+		<transferObjectTypeOccurrence>
+			<minOccurrence>1</minOccurrence>
+			<maxOccurrence>1</maxOccurrence>
+		</transferObjectTypeOccurrence>
+		<transferObjectTypeSize>
+			<minSize>8</minSize>
+			<maxSize>18</maxSize>
+			<unitsType>KB</unitsType>
+		</transferObjectTypeSize>
+		<namePreservationRule>Use the Source names</namePreservationRule>
+	</description>
+	<relation>
+		<parentCollection>NASA_ESA_CNES_Test_Data_Exchange_01</parentCollection>
+		<association>
+			<targetID>ISEE_Mag_Field_Data_TC1</targetID>
+			<relationDescription>
+				<relationType>Metadata</relationType>
+				<relationTextualDescription>group of metadata files corresponding to the Target Id's group of  data files</relationTextualDescription>
+			</relationDescription>
+		</association>
+	</relation>
+	<groupType>
+		<groupTypeID>Satellite_Group</groupTypeID>
+		<groupTypeDescription>There are 2 satellite groups, ISEE1 and ISEE 2</groupTypeDescription>
+		<groupTypeStructureName>directory</groupTypeStructureName>
+		<groupTypeOccurrence>
+			<minOccurrence>2</minOccurrence>
+			<maxOccurrence>2</maxOccurrence>
+		</groupTypeOccurrence>
+		<groupType>
+			<groupTypeID>Yearly_Group</groupTypeID>
+			<groupTypeDescription>There will be only 1 yearly group - 1977</groupTypeDescription>
+			<groupTypeStructureName>directory</groupTypeStructureName>
+			<groupTypeOccurrence>
+				<minOccurrence>1</minOccurrence>
+				<maxOccurrence>1</maxOccurrence>
+			</groupTypeOccurrence>
+			<dataObjectType>
+				<dataObjectTypeID>NSSDC_Metadata_ISEE_Mag_Data_File</dataObjectTypeID>
+				<dataObjectTypeDescription>NSSDC generated metadata for ISEE Magnetometer 1 day Data File for days 295-300 inclusive</dataObjectTypeDescription>
+				<dataObjectTypeOccurrence>
+					<minOccurrence>4</minOccurrence>
+					<maxOccurrence>6</maxOccurrence>
+				</dataObjectTypeOccurrence>
+				<dataObjectTypeFormat>
+					<mimeType>text/plain</mimeType>
+				</dataObjectTypeFormat>
+				<dataObjectTypeAssociation>
+					<targetID>ISEE_Mag_Data_File</targetID>
+					<relationDescription>
+						<relationType>Metadata</relationType>
+						<relationTextualDescription>Metadata files corresponding to the Target ID's data files</relationTextualDescription>
+					</relationDescription>
+				</dataObjectTypeAssociation>
+			</dataObjectType>
+		</groupType>
+	</groupType>
+</transferObjectTypeDescriptor>

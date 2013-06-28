@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transferObjectTypeDescriptor xmlns:x0="http://www.w3.org/2001/XMLSchema">
+  <identification>
+    <descriptorModelID>STD_PAIS_TO_DM</descriptorModelID>
+    <descriptorModelVersion>1.0</descriptorModelVersion>
+    <descriptorID>auxdata</descriptorID>
+  </identification>
+  <description>
+    <transferObjectTypeTitle>auxiliary data</transferObjectTypeTitle>
+    <transferObjectTypeDescription>PER and PEG calibration parameters</transferObjectTypeDescription>
+    <transferObjectTypeOccurrence>
+      <minOccurrence>1</minOccurrence>
+      <maxUnknown />
+    </transferObjectTypeOccurrence>
+  </description>
+  <relation>
+    <parentCollection>L0</parentCollection>
+    <association>
+      <targetID>L0 data</targetID>
+      <relationDescription>
+        <relationType>provenance</relationType>
+        <relationTextualDescription>used with L0 data to create correspondong L1 data</relationTextualDescription>
+      </relationDescription>
+    </association>
+  </relation>
+  <groupType>
+    <groupTypeID>PERPEG</groupTypeID>
+    <groupTypeStructureName>directory</groupTypeStructureName>
+    <dataObjectType>
+      <dataObjectTypeID>PER</dataObjectTypeID>
+      <dataObjectTypeOccurrence>
+        <minOccurrence>1</minOccurrence>
+        <maxOccurrence>1</maxOccurrence>
+      </dataObjectTypeOccurrence>
+    </dataObjectType>
+    <dataObjectType>
+      <dataObjectTypeID>PEG</dataObjectTypeID>
+      <dataObjectTypeOccurrence>
+        <minOccurrence>1</minOccurrence>
+        <maxOccurrence>1</maxOccurrence>
+      </dataObjectTypeOccurrence>
+    </dataObjectType>
+  </groupType>
+</transferObjectTypeDescriptor>
+

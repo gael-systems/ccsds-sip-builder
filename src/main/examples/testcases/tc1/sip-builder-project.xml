@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file describes an Archiving project.
+
+  Basically this file references a series of PAIS descriptors and SIP
+  constraints. Then, this file define so called "collectors" that are
+  responsible of collecting data to be used to build any Data Object Type
+  or Group Type defined in the referenced descriptors.
+
+  The root node accepts an optional "outputDirectory" attribute that
+  denotes the location where the output SIPs should be generated. If not
+  provided, the SIPs will be generated in the current working directory.
+
+  The root node also accepts an optional "outputPackaging" attribute that
+  specifies the type of archive of the output SIP(s). The allowed values
+  are: "none" (left as a directory), "dir" (same as "none"), "zip",
+  "tgz", "tar".
+
+  The root node requires two children elements:
+
+  - <descriptors> : the list of PAIS descriptors and constraints describing
+       the archiving project components.
+  - <collectors> : the rules for collecting data files to be included in the
+       output SIPs.
+
+-->
+<project xmlns="urn:fr:gael:schema:ccsds:pais:sip-builder:1"
+    outputDirectory="target" outputPackaging="tgz">
+
+   <!-- The descriptors that compose the archiving project model.
+
+     As many descriptors can be referenced but only one constraints file
+     can be provided as expected from the PAIS specifications.
+
+     The "descriptors" element accepts one optional "baseDirectory"
+     attribute dedicated to the resolution of relative paths to descriptors.
+     If omitted, the considered base directory of the relative path to
+     descriptors is the directory containing this file. This attribute is
+     useful to shorten the paths to the multiple descriptors.  Finally, if
+     the provided path directory is a relative path, it will be resolved
+     as a relative path from the directory containing this file.
+
+     At least one child "descriptor" element shall be provided.
+
+     Note: collection descriptors are parsed but never used in the current
+           implementation
+   -->
+   <descriptors baseDirectory="Test Case 1 Update6/Descriptors and Constraints TC1">
+      <descriptor file="ISEE Descriptor- data TC1.xml"/>
+      <descriptor file="ISEE Descriptor- metadata TC1.xml"/>
+      <descriptor file="ISEE Collection Descriptor TC1.xml"/>
+      <descriptor file="ISEE SIP Constraints TC1.xml" />
+   </descriptors>
+
+   <!-- The collectors i.e rules for collecting data files to be included
+      in the output SIPs.
+
+      The "collectors" element accepts one optional "baseDirectory"
+      attribute for the resolution of any relative path of the children
+      collectors. If omitted, the current working directory will be
+      considered.
+
+      Multiple collectors can be defined and usually there will be at least
+      one collector for each Data Object Types and Group Types defined in
+      the overall descriptors.
+
+      A "collector" child references the target Data Object Type or Group
+      Type through its mandatory "typeId" attribute. This typeId shall match
+      a valid identifier of one of the referenced PAIS descriptor.
+      
+      A "collector" element accepts one optional "caseSensitive" element
+      that specifies whether the searching rules/patterns shall consider
+      or ignore the character case for selecting files and directories.
+
+      A "collector" element requires at least one collection rule that may
+      be an "include" or an "exclude" element. A "collector" can have
+      multiple include or exclude rules. The order of includes and excludes
+      doesn't affect the result because excluding rules are all applied on
+      the set of files or directory resulting from all including rules.
+      The syntax of the content of include/exclude element is a sort of
+      file path (relative or absolute) for which the steps would be regular
+      exceptions instead of fixed names. A specific expression is "**" that
+      means and file or any sub-directory of the current step.
+
+      Experimental: the "collector" elements accepts an optional
+      "multiPointers" attribute that changes the mode of generation of
+      Data Object Type instance. By default i.e. false, the strategy of
+      generation if to generate one XFDU Content Unit for any
+      dataObjectPointer required. Set to true, this option will general
+      one Content Unit for all dataObjectPointers. At the time of writing,
+      this option is still to be validated by the CCSDS DAI Working Group
+      (2013-06-20).
+
+   -->
+   <collectors baseDirectory="C:\Users\Mbaye\Documents\Data\pais\NASA_ESA_CNES_Test_Data_Exchange\NASA_ESA_CNES_Test_Data_Exchange_Input">
+       <collector typeId="Satellite_Group"
+           caseSensitive="true"> <!-- Optional -->
+           <include>isee[12]</include>
+       </collector>
+       <collector typeId="Yearly_Group">
+           <include>mag/**/1977</include>
+       </collector>
+       <collector typeId="ISEE_Mag_Data_File">
+           <include>.*(29[5-9]|300).asc-gz</include>
+       </collector>
+       <collector typeId="NSSDC_Metadata_ISEE_Mag_Data_File"
+           multiPointers="false">
+           <include>**/.*(29[5-9]|300).asc-gz_att</include>
+       </collector>
+   </collectors>
+
+</project>

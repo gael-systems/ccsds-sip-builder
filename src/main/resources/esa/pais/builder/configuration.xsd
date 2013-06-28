@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ! ESA SIP Builder ! Copyright (C) 2012, 2013 European Space Agency (ESA) 
+   ! Copyright (C) 2012, 2013 GAEL Systems ! GNU Lesser General Public License 
+   (LGPL) ! ! This file is part of ESA SIP Builder software suite. ! ! ESA SIP 
+   Builder is free software: you can redistribute it and/or modify ! it under 
+   the terms of the GNU Lesser General Public License as published by ! the 
+   Free Software Foundation, either version 3 of the License, or ! (at your 
+   option) any later version. ! ! Data Request Broker is distributed in the 
+   hope that it will be useful, ! but WITHOUT ANY WARRANTY; without even the 
+   implied warranty of ! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+   See the ! GNU Lesser General Public License for more details. ! ! You should 
+   have received a copy of the GNU Lesser General Public License ! along with 
+   this program. If not, see <http://www.gnu.org/licenses/>. -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   elementFormDefault="qualified" attributeFormDefault="unqualified"
+   xmlns="urn:fr:gael:schema:ccsds:pais:sip-builder:1"
+   targetNamespace="urn:fr:gael:schema:ccsds:pais:sip-builder:1">
+
+   <xs:element name="project" type="Project">
+      <xs:annotation>
+         <xs:documentation>Producer-Archive Project</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+
+   <xs:complexType name="Project">
+      <xs:sequence>
+         <xs:element name="descriptors" type="Descriptors"/>
+         <xs:element name="collectors" type="Collectors" />
+      </xs:sequence>
+      <xs:attribute name="outputDirectory" type="xs:anyURI" default=".">
+         <xs:annotation>
+            <xs:documentation>the path where will be generated
+               sip and gathered data objects to be transferred
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="outputPackaging" type="xs:string" default="zip"/>
+   </xs:complexType>
+
+   <xs:complexType name="Descriptors">
+      <xs:sequence>
+         <xs:element name="descriptor" type="Descriptor"
+            minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="baseDirectory" type="xs:anyURI">
+         <xs:annotation>
+            <xs:documentation>defines the directory from where the
+               filter must be applied. if not provided, the base
+               directory is computed according to the current context.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:complexType name="Descriptor">
+      <xs:attribute name="file" type="xs:anyURI" use="required" />
+   </xs:complexType>
+
+   <xs:complexType name="Collectors">
+      <xs:sequence>
+         <xs:element name="collector" type="Collector"
+            maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="baseDirectory" type="xs:anyURI">
+         <xs:annotation>
+            <xs:documentation>defines the directory from where the
+               filter must be applied. if not provided, the base
+               directory is computed according to the current context.
+            </xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:complexType>
+
+   <xs:complexType name="Collector">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="include" type="xs:string"
+               minOccurs="0" maxOccurs="unbounded">
+               <xs:annotation>
+                  <xs:documentation>include pattern is composed of java
+                     regular expression, and additionnal "**" wildcard
+                     to recursively match all directories
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:element>
+            <xs:element name="exclude" type="xs:string"
+               minOccurs="0" maxOccurs="unbounded">
+               <xs:annotation>
+                  <xs:documentation>same pattern as include
+                  </xs:documentation>
+               </xs:annotation>
+            </xs:element>
+         </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="typeId" type="xs:string" use="required" />
+      <xs:attribute name="multiPointers" type="xs:boolean" default="false"/>
+      <xs:attribute name="caseSensitive" type="xs:boolean" default="true"/>
+      <xs:attribute name="baseDirectory" type="xs:anyURI"/>
+   </xs:complexType>
+
+</xs:schema>

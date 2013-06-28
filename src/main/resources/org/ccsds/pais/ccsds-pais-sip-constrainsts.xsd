@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+
+  <xsd:include schemaLocation="ccsds-pais-common-types.xsd"/>
+
+  <xsd:element name="sipConstraints">
+    <xsd:annotation>
+      <xsd:documentation>
+         Two types of constraints apply to SIPs: the first one defines the
+         authorized content of each SIP; the second one defines the order in
+         which SIPs have to be delivered by the Producer to the Archive. The
+         constraints are associated with a specific Producer-Archive Project.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="producerArchiveProjectID" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+               A unique identifier of the Producer-Archive Project among all
+               Producer-Archive Projects undertaken by this Archive. This ID is
+               provided by the Archive for use in the SIPs.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="sipContentType" maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation>
+               A set of elements describing the content of each type of SIP.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="sipContentTypeID" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the SIP Content Type. It shall be unique
+                     across the Producer-Archive Project. Uniqueness shall be
+                     checked by the Archive. It shall be referenced in each
+                     created SIP.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="authorizedDescriptor" maxOccurs="unbounded">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     A list of the Transfer Object Type Descriptor Identifiers
+                     that a transferred SIP of the type "SIP Content Type ID",
+                     may or may not contain. A transferred SIP shall not
+                     contain a Transfer Object associated with a Descriptor ID
+                     that is not in this list.
+                  </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="descriptorID" type="xsd:string">
+                      <xsd:annotation>
+                        <xsd:documentation>
+                           Identifier for this Transfer Object Type which is
+                           allowed in this type of SIP.
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="occurrence" type="occurrenceType">
+                      <xsd:annotation>
+                        <xsd:documentation>
+                           Number of Transfer Objects of this Transfer Object
+                           Type that will be present in a SIP of this type.
+                           This may be expressed as one, or more, or as a range
+                           of values. If the number of Transfer Objects is not
+                           known at the time of SIP Content Type specification
+                           creation, then zero shall be specified as the
+                           minOccurrence and the MaxUnknown element shall be
+                           used. In the case of a unique value, the
+                           minOccurrence and the maxOccurrence have the same
+                           value.
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="sipSequencingConstraintGroup" minOccurs="0"
+           maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation>
+               A set of elements describing the delivery order applying to the
+               SIP Content Types within the Producer-Archive Project. There are
+               no constraints between the SIPs belonging to different SIP
+               Sequencing Constraint Groups.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="groupName" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Name for this group of constraint items.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="constraintItem" minOccurs="2"
+                 maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="sipContentTypeID" type="xsd:string">
+                      <xsd:annotation>
+                        <xsd:documentation>
+                           Identifier of a SIP Content Type. It identifies each
+                           of the types of SIPs that are under constraints in
+                           the corresponding group.
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="constraintSerialNumber"
+                       type="xsd:integer">
+                      <xsd:annotation>
+                        <xsd:documentation>
+                           A number that specifies the order of delivery of
+                           SIPs with the associated SIP Content Type identifier
+                           All SIPs of a SIP Content Type associated with a
+                           Constraint Serial Number with a value of "n" must be
+                           delivered before all SIPs of a SIP Content Type
+                           associated with a Constraint Serial Number with a
+                           value greater than "n". There are no constraints
+                           between two or more SIP Content Types with the same
+                           Constraint Serial Number value inside the same group.
+                        </xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

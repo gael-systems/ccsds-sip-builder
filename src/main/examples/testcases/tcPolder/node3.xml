@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transferObjectTypeDescriptor xmlns:x0="http://www.w3.org/2001/XMLSchema">
+  <identification>
+    <descriptorModelID>STD_PAIS_TO_DM</descriptorModelID>
+    <descriptorModelVersion>1.0</descriptorModelVersion>
+    <descriptorID>project doc</descriptorID>
+  </identification>
+  <description>
+    <transferObjectTypeTitle>documentation</transferObjectTypeTitle>
+    <transferObjectTypeDescription>Project documentation</transferObjectTypeDescription>
+    <transferObjectTypeOccurrence>
+      <minOccurrence>1</minOccurrence>
+      <maxUnknown>1</maxUnknown>
+    </transferObjectTypeOccurrence>
+  </description>
+  <relation>
+    <parentCollection>POLDER</parentCollection>
+  </relation>
+  <groupType>
+    <groupTypeID>GroupDoc</groupTypeID>
+    <groupTypeStructureName>Set</groupTypeStructureName>
+    <dataObjectType>
+      <dataObjectTypeID>TIDREPT11</dataObjectTypeID>
+      <dataObjectTypeDescription>Data preservation study</dataObjectTypeDescription>
+      <dataObjectTypeOccurrence>
+        <minOccurrence>1</minOccurrence>
+        <maxOccurrence>1</maxOccurrence>
+      </dataObjectTypeOccurrence>
+    </dataObjectType>
+  </groupType>
+</transferObjectTypeDescriptor>
+

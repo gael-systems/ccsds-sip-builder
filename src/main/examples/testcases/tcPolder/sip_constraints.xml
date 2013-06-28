@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sipConstraints>
+   <producerArchiveProjectID>POLDER</producerArchiveProjectID>
+
+   <!--  L0 Data -->
+   <sipContentType>
+      <sipContentTypeID>SIP_L0_DATA</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>L0 data</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!--  L1 Basic Data -->
+   <sipContentType>
+      <sipContentTypeID>SIP_L1_BASIC_DATA</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>L1 dataBasic</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!--  L1 Browse -->
+   <sipContentType>
+      <sipContentTypeID>SIP_L1_BROWSE_DATA</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>L1 data</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!--  Auxiliary Data -->
+   <sipContentType>
+      <sipContentTypeID>SIP_AUX_DATA</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>auxdata</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!--  Project Documentation -->
+   <sipContentType>
+      <sipContentTypeID>SIP_DOC</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>project doc</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!-- L0 Representation Information -->
+   <sipContentType>
+      <sipContentTypeID>SIP_L0_REPINFO</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>L0 descr</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <!-- L1 Representation Information -->
+   <sipContentType>
+      <sipContentTypeID>SIP_L1_REPINFO</sipContentTypeID>
+      <authorizedDescriptor>
+         <descriptorID>L1 descr</descriptorID>
+         <occurrence>
+            <minOccurrence>1</minOccurrence>
+            <maxOccurrence>1</maxOccurrence>
+         </occurrence>
+      </authorizedDescriptor>
+   </sipContentType>
+
+   <sipSequencingConstraintGroup>
+      <groupName>Normal Group-A</groupName>
+      <constraintItem>
+         <sipContentTypeID>SIP_DOC</sipContentTypeID>
+         <constraintSerialNumber>1</constraintSerialNumber>
+      </constraintItem>
+      <constraintItem>
+         <sipContentTypeID>SIP_L0_REPINFO</sipContentTypeID>
+         <constraintSerialNumber>2</constraintSerialNumber>
+      </constraintItem>
+      <constraintItem>
+         <sipContentTypeID>SIP_L1_REPINFO</sipContentTypeID>
+         <constraintSerialNumber>2</constraintSerialNumber>
+      </constraintItem>
+      <constraintItem>
+         <sipContentTypeID>SIP_AUX_DATA</sipContentTypeID>
+         <constraintSerialNumber>3</constraintSerialNumber>
+      </constraintItem>
+   </sipSequencingConstraintGroup>
+
+</sipConstraints>

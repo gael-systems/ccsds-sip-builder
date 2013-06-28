@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sipConstraints xmlns:x0="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="D:\PUBLIC\PAIS_DATA\projectsV2.7\NASA1\conf\sip_constraints_RB1.xsd">
+	<producerArchiveProjectID>NASA_ESA_CNES_Test_Data_Exchange_01</producerArchiveProjectID>
+	<sipContentTypes>
+		<sipContentTypeID>SIP_01</sipContentTypeID>
+		<authorizedDescriptors>
+			<descriptorID>ISEE_Mag_Field_Data_TC1</descriptorID>
+			<occurrence>
+				<minOccurrence>1</minOccurrence>
+				<maxOccurrence>1</maxOccurrence>
+			</occurrence>
+		</authorizedDescriptors>
+		<sipContentTypeID>SIP_02</sipContentTypeID>
+		<authorizedDescriptors>
+			<descriptorID>ISEE_Mag_Field_Metadata_TC1</descriptorID>
+			<occurrence>
+				<minOccurrence>1</minOccurrence>
+				<maxOccurrence>1</maxOccurrence>
+			</occurrence>
+		</authorizedDescriptors>
+	</sipContentTypes>
+	<sipSequencingConstraintGroup>
+		<groupName>Normal Group-A</groupName>
+		<constraintItem>
+			<sipContentTypeID>SIP_02</sipContentTypeID>
+			<constraintSerialNumber>1</constraintSerialNumber>
+		</constraintItem>
+		<constraintItem>
+			<sipContentTypeID>SIP_01</sipContentTypeID>
+			<constraintSerialNumber>2</constraintSerialNumber>
+		</constraintItem>
+	</sipSequencingConstraintGroup>
+</sipConstraints>

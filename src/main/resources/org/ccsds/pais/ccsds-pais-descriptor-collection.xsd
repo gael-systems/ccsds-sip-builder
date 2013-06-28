@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   elementFormDefault="unqualified"
+   attributeFormDefault="unqualified">
+
+  <xsd:include schemaLocation="ccsds-pais-common-types.xsd"/>
+
+  <xsd:element name="collectionDescriptor">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="identification">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element supporting the unique identification of a
+               Collection within the Producer-Archive Project.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="descriptorModelID" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the Descriptor Model upon which this
+                     Collection Descriptor is based. It may be the Descriptor
+                     Model as given in the standard or it may be a specialized
+                     version. It shall be unique across the Producer-Archive
+                     Project and shall be provided by the Archive. The standard
+                     value for this ID, when no specialization has been
+                     employed, is 'CCSD0015'. When specialization has been
+                     employed, the value for the Descriptor Model ID should be
+                     agreed between the Producer and the Archive.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="descriptorModelVersion" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the version of the Collection Descriptor
+                     Model. This allows tracking updates to the identified
+                     Descriptor Model. The standard value for this ID, when the
+                     Descriptor Model ID is 'CCSD0015' and no revision to this
+                     standard model has occurred, is 'V1.0'. When
+                     specialization has been employed, the value for the
+                     Descriptor Model Version shall be agreed between the
+                     Producer and the Archive.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="descriptorID" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of this Descriptor within the Producer-Archive
+                     Project. Uniqueness shall be checked by the Archive. This
+                     identifier can be used by a relationship element to refer
+                     to this Collection. The highest-level Descriptor in the
+                     MOT shall be a Collection Descriptor. The value for its
+                     Descriptor ID shall be the Producer-Archive Project ID.
+                     The Producer-Archive Project ID shall be assigned by the
+                     Archive.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="any" type="extensionType" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="description">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element giving a high level description of the Collection.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="collectionTitle" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Extensive descriptive phrase used as the name of the
+                     Collection.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="collectionDescription" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Explanatory text describing the meaning of the Collection
+                     (content and principal characteristics).
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="collectionSize" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Characterization of the size range of this Collection. The
+                     size range may not be known at the time of descriptor
+                     creation and therefore the corresponding element may be
+                     omitted.
+                  </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="minSize" type="xsd:float" minOccurs="0"/>
+                    <xsd:element name="maxSize" type="xsd:float" minOccurs="0"/>
+                    <xsd:element name="unitsType" minOccurs="0">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="KB"/>
+                          <xsd:enumeration value="MB"/>
+                          <xsd:enumeration value="GB"/>
+                          <xsd:enumeration value="TB"/>
+                          <xsd:enumeration value="PB"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="any" type="extensionType" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="relation">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element identifying directional relationships between
+               this Collection and other Collections, Transfer Object Types,
+               Transfer Object Group Types, or Data Object Types. These
+               relationships are specified using identifiers as given within
+               the Descriptors of the MOT.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="parentCollection" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of a Collection Descriptor that provides an
+                     aggregation view that includes this Collection. The value
+                     for the parentCollection of the highest level Descriptor
+                     in the MOT shall be 'none'.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="association" type="associationType"
+                 minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Parent element used to describe a relationship between
+                     this Collection and the objects having the identifier
+                     given by the targetID element (Objects include Transfer
+                     Objects, Transfer Object Groups, Data Objects, and
+                     Collections). These are transversal links specifying the
+                     type of relation.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="any" type="extensionType" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="any" type="extensionType" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>
+               Allows a conforming XML document to have any additional XML
+               elements at this point in its structure.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
