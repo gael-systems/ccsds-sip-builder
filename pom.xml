@@ -12,7 +12,7 @@
 
    <groupId>fr.gael.ccsds</groupId>
    <artifactId>sip-builder</artifactId>
-   <version>1.0.8</version>
+   <version>1.0.9</version>
    <name>CCSDS PAIS SIP Builder</name>
 
    <!-- To be removed with explicit reference to necessary repos -->
