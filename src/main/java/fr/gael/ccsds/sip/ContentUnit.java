@@ -214,7 +214,7 @@ public class ContentUnit extends Vector<ContentUnit>
          {
             extension =
                new Extension(
-                     "<sipTransferObject xmlns=\"http://www.ccsds.org/SubmissionInformationPackage\">\n"
+                     "<sipTransferObject xmlns=\"urn:ccsds:schema:pais:1\">\n"
                            + "   <descriptorID xmlns=\"\">"
                            + this.getId()
                            + "</descriptorID>\n"
@@ -236,7 +236,7 @@ public class ContentUnit extends Vector<ContentUnit>
          {
             extension =
                new Extension(
-                     "<sipTransferObjectGroup xmlns=\"http://www.ccsds.org/SubmissionInformationPackage\">\n"
+                     "<sipTransferObjectGroup xmlns=\"urn:ccsds:schema:pais:1\">\n"
                            + (this.getId() != null ? "   <associatedDescriptorGroupTypeID xmlns=\"\">"
                                  + this.getId()
                                  + "</associatedDescriptorGroupTypeID>\n"
@@ -251,7 +251,7 @@ public class ContentUnit extends Vector<ContentUnit>
       {
          extension =
             new Extension(
-                  "<sipDataObject xmlns=\"http://www.ccsds.org/SubmissionInformationPackage\">\n"
+                  "<sipDataObject xmlns=\"urn:ccsds:schema:pais:1\">\n"
                         + (this.getId() != null ? "   <associatedDescriptorDataID xmlns=\"\">"
                               + this.getId() + "</associatedDescriptorDataID>\n"
                               : "") + "</sipDataObject>\n");

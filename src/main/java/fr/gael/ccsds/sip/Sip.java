@@ -141,7 +141,7 @@ public class Sip extends Vector<ContentUnit>
       // Update XFDU namespace
       final Namespace ns = xfdu.getNamespace();
       final Namespace sipns = new Namespace();
-      sipns.bind("sip", "http://www.ccsds.org/SubmissionInformationPackage");
+      sipns.bind("sip", "urn:ccsds:schema:pais:1");
       ns.addNamespaces(sipns);
 
       final VolumeInfo vi = new VolumeInfo("1.0", null);
@@ -152,7 +152,7 @@ public class Sip extends Vector<ContentUnit>
 
       final EnvironmentInfo ei = new EnvironmentInfo(null, new Extension(
             "<sipGlobalInformation "
-                  + " xmlns=\"http://www.ccsds.org/SubmissionInformationPackage\">\n"
+                  + " xmlns=\"urn:ccsds:schema:pais:1\">\n"
                   + "   <sipID xmlns=\"\">" + sip_identifier + "</sipID>\n"
                   + "   <producerSourceID xmlns=\"\">"
                   + this.project.getTypeDescriptors().iterator().next().getIdentification().getProducerSourceID() + "</producerSourceID>\n"
