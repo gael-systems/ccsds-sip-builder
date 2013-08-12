@@ -215,10 +215,10 @@ public class ContentUnit extends Vector<ContentUnit>
             extension =
                new Extension(
                      "<sipTransferObject xmlns=\"urn:ccsds:schema:pais:1\">\n"
-                           + "   <descriptorID xmlns=\"\">"
+                           + "   <descriptorID>"
                            + this.getId()
                            + "</descriptorID>\n"
-                           + "   <transferObjectID xmlns=\"\">"
+                           + "   <transferObjectID>"
                            + index_manager.getNextId(this.getId())
                            + "</transferObjectID>\n" + "</sipTransferObject>\n");
             // + (stot.getLastTransferObjectFlag() != null ?
@@ -237,11 +237,11 @@ public class ContentUnit extends Vector<ContentUnit>
             extension =
                new Extension(
                      "<sipTransferObjectGroup xmlns=\"urn:ccsds:schema:pais:1\">\n"
-                           + (this.getId() != null ? "   <associatedDescriptorGroupTypeID xmlns=\"\">"
+                           + (this.getId() != null ? "   <associatedDescriptorGroupTypeID>"
                                  + this.getId()
                                  + "</associatedDescriptorGroupTypeID>\n"
                                  : "")
-                           + (this.getInstancePath() != null ? "   <transferObjectGroupInstanceName xmlns=\"\">"
+                           + (this.getInstancePath() != null ? "   <transferObjectGroupInstanceName>"
                                  + this.getInstancePath()
                                  + "</transferObjectGroupInstanceName>\n"
                                  : "") + "</sipTransferObjectGroup>\n");
@@ -252,7 +252,7 @@ public class ContentUnit extends Vector<ContentUnit>
          extension =
             new Extension(
                   "<sipDataObject xmlns=\"urn:ccsds:schema:pais:1\">\n"
-                        + (this.getId() != null ? "   <associatedDescriptorDataID xmlns=\"\">"
+                        + (this.getId() != null ? "   <associatedDescriptorDataID>"
                               + this.getId() + "</associatedDescriptorDataID>\n"
                               : "") + "</sipDataObject>\n");
          // + (sdot.getDataObjectPreservationName() != null ?

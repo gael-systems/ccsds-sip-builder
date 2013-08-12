@@ -153,15 +153,15 @@ public class Sip extends Vector<ContentUnit>
       final EnvironmentInfo ei = new EnvironmentInfo(null, new Extension(
             "<sipGlobalInformation "
                   + " xmlns=\"urn:ccsds:schema:pais:1\">\n"
-                  + "   <sipID xmlns=\"\">" + sip_identifier + "</sipID>\n"
-                  + "   <producerSourceID xmlns=\"\">"
+                  + "   <sipID>" + sip_identifier + "</sipID>\n"
+                  + "   <producerSourceID>"
                   + this.project.getTypeDescriptors().iterator().next().getIdentification().getProducerSourceID() + "</producerSourceID>\n"
-                  + "   <producerArchiveProjectID xmlns=\"\">"
+                  + "   <producerArchiveProjectID>"
                   + this.project.getConstraints().getProducerArchiveProjectID()
                   + "</producerArchiveProjectID>\n"
-                  + "   <sipContentTypeID xmlns=\"\">"
+                  + "   <sipContentTypeID>"
                   + this.getContentTypeId() + "</sipContentTypeID>\n"
-                  + "   <sipSequenceNumber xmlns=\"\">"
+                  + "   <sipSequenceNumber>"
                   + sequence_number + "</sipSequenceNumber>\n"
                   + "</sipGlobalInformation>\n"));
 // TODO: the string above shall be extracted from the present class
