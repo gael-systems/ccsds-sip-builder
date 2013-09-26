@@ -95,7 +95,6 @@
          </xs:choice>
       </xs:sequence>
       <xs:attribute name="typeId" type="xs:string" use="required" />
-      <xs:attribute name="multiPointers" type="xs:boolean" default="false"/>
       <xs:attribute name="caseSensitive" type="xs:boolean" default="true"/>
       <xs:attribute name="baseDirectory" type="xs:anyURI"/>
    </xs:complexType>
