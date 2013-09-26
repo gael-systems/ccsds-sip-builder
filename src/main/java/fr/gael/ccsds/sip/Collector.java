@@ -25,8 +25,6 @@ public class Collector
     * directory.
     */
    private final HashMap<String, String []> resultCache;
-
-   private Boolean multiplePointers;
    
    private File baseDirectory;
 
@@ -65,9 +63,6 @@ public class Collector
 
       // Initialize result cache
       this.resultCache = new HashMap<String, String []>();
-
-      // Initialize grouping mode
-      this.multiplePointers = xml_collector.isMultiPointers();
 
       // Set local base directory
       if (xml_collector.getBaseDirectory() != null)
@@ -140,13 +135,5 @@ public class Collector
       return results;
 
    } // End getIncludedFiles(File)
-
-   /**
-    * @return the multiplePointers
-    */
-   public Boolean isMultiplePointers()
-   {
-      return multiplePointers;
-   }
 
 } // End Collector class
