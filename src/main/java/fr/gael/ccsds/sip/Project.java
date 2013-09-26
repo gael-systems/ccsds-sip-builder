@@ -1027,7 +1027,25 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
          collected_files = new String[1];
          collected_files[0] = "";
       }
-      
+
+      // Get maximum number of occurrences
+      long max_occurrence = 1;
+
+      OccurrenceType file_occurrence =
+            data_type.getDataObjectTypeFileOccurrence();
+
+      if (file_occurrence != null)
+      {
+         if (file_occurrence.getMaxOccurrence() != null)
+         {
+            max_occurrence = file_occurrence.getMaxOccurrence().longValue();
+         }
+         else if (file_occurrence.getMaxUnknown() != null)
+         {
+            max_occurrence = -1;
+         }
+      }
+
       ContentUnit content_unit = null;
 
       // Loop among collected files
@@ -1053,7 +1071,9 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
 
          // Creates a CU if none exists or if one is necessary for each DO
          if ((content_unit == null) ||
-              ((collector != null) && (!collector.isMultiplePointers())))
+             ((max_occurrence > 0) &&
+              (content_unit.getDataObjectFiles() != null) &&
+              (content_unit.getDataObjectFiles().size() >= max_occurrence)))
          {
             content_unit = new ContentUnit();
 
