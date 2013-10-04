@@ -710,6 +710,52 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
          List<ContentUnit> content_units =
                this.getContentUnits(descriptor);
 
+         // Check the number transfer objects against type constraints
+         if ((content_units != null) &&
+             (descriptor.getDescription() != null) &&
+             (descriptor.getDescription().getTransferObjectTypeOccurrence()
+                   != null))
+         {
+            OccurrenceType occurrence = descriptor.getDescription().
+               getTransferObjectTypeOccurrence();
+
+            boolean occurrence_error = false;
+
+            // Check minimum occurrence
+            if ((occurrence.getMinOccurrence() != null) &&
+                (occurrence.getMinOccurrence().intValue() >
+                   content_units.size()))
+            {
+               logger.warn("The " + content_units.size() +
+                  " object(s) collected for \"" + descriptor_id +
+                  "\" type do not meet the minimum of " + 
+                  occurrence.getMinOccurrence().intValue() +
+                  " object(s) required.");
+               occurrence_error = true;
+            }
+
+            // Check maximum occurrence
+            if ((occurrence.getMaxOccurrence() != null) &&
+                (occurrence.getMaxOccurrence().intValue() <
+                   content_units.size()))
+            {
+               logger.warn("The " + content_units.size() +
+                  " object(s) collected for \"" + descriptor_id +
+                  "\" type exceed the maximum of " + 
+                  occurrence.getMaxOccurrence().intValue() +
+                  " object(s) allowed.");
+               occurrence_error = true;
+            }
+
+            // No-error report
+            if (!occurrence_error)
+            {
+               logger.info("The " + content_units.size() +
+                     " object(s) collected for \"" + descriptor_id +
+                     "\" type is included in the required range.");
+            }
+         }
+
          // Flag last transfer object
          if ((content_units != null) && (content_units.size() > 0))
          {
