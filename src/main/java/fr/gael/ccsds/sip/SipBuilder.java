@@ -40,9 +40,6 @@ public class SipBuilder
       logger.info("Options:");
       logger.info("  --project <project-file>");
       logger.info("     Builds all SIPs according the given XML <project-file>");
-      logger.info("  --gui");
-      logger.info("     Launch graphical interface (set also if " +
-         "--project option is missing)");
       logger.info("  --help");
       logger.info("     Prints this message");
       logger.info("  --version");
@@ -75,10 +72,18 @@ public class SipBuilder
       // overrides any others.
       for (int iarg = 0; iarg < args.length; iarg++)
       {
+         // Manage help request
          if (args[iarg].equals("--help") || args[iarg].equals("-h")
                || args[iarg].equals("-help"))
          {
             logUsage(logger);
+            System.exit(0);
+         }
+
+         // Manage version request (exit immediately - already printed)
+         if (args[iarg].equals("--version") || args[iarg].equals("-v")
+               || args[iarg].equals("-version"))
+         {
             System.exit(0);
          }
       }
@@ -87,7 +92,6 @@ public class SipBuilder
       File project_file = null;
       File target_directory = null;
       String packaging = null;
-      boolean launch_gui = false;
 
       boolean argument_error = false;
       boolean display_usage = false;
@@ -126,11 +130,6 @@ public class SipBuilder
                argument_error = true;
                continue;
             }
-         }
-         // Match --project argument
-         else if (args[iarg].equals("--gui"))
-         {
-            launch_gui = true;
          }
          // Case of unsupported option
          else
