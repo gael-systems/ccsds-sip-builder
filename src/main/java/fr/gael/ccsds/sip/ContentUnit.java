@@ -41,6 +41,8 @@ public class ContentUnit extends Vector<ContentUnit>
    private String instancePath;
    
    private ContentUnit parent = null;
+   
+   private boolean lastTransferObject = false;
 
    @Override
    public boolean add(ContentUnit unit)
@@ -195,6 +197,16 @@ public class ContentUnit extends Vector<ContentUnit>
       return this;
    }
 
+   public boolean isLastTransferObject()
+   {
+      return lastTransferObject;
+   }
+
+   public void setLastTransferObject(boolean lastTransferObject)
+   {
+      this.lastTransferObject = lastTransferObject;
+   }
+
    public esa.xfdu.map.ContentUnit toXfduContentUnit(IndexManager index_manager,
          List<DataObject> data_objects, String package_path)
    {
@@ -212,25 +224,30 @@ public class ContentUnit extends Vector<ContentUnit>
       {
          if (this.getParent() == null)
          {
+            String last_transfer_object_element =
+               "<lastTransferObjectFlag>";
+
+            if (this.lastTransferObject)
+            {
+               last_transfer_object_element += "TRUE";
+            }
+            else
+            {
+               last_transfer_object_element += "FALSE";
+            }
+
+            last_transfer_object_element += "</lastTransferObjectFlag>";
+
             extension =
                new Extension(
-                     "<sipTransferObject xmlns=\"urn:ccsds:schema:pais:1\">\n"
-                           + "   <descriptorID>"
-                           + this.getId()
-                           + "</descriptorID>\n"
-                           + "   <transferObjectID>"
-                           + index_manager.getNextId(this.getId())
-                           + "</transferObjectID>\n" + "</sipTransferObject>\n");
-            // + (stot.getLastTransferObjectFlag() != null ?
-            // ("   <lastTransferObjectFlag xmlns=\"\">"
-            // + stot.getLastTransferObjectFlag() +
-            // "</lastTransferObjectFlag>\n")
-            // : "")
-            // + (stot.getReplacementTransferObjectID() != null ?
-            // ("   <replacementTransferObjectID xmlns=\"\">"
-            // + stot.getReplacementTransferObjectID() +
-            // "</replacementTransferObjectID>\n")
-            // : "") + "</sipTransferObject>\n");
+                  "<sipTransferObject xmlns=\"urn:ccsds:schema:pais:1\">\n"+
+                  "  <descriptorID>" + this.getId() + "</descriptorID>\n" +
+                  "  <transferObjectID>" +
+                        index_manager.getNextId(this.getId()) +
+                        "</transferObjectID>\n" +
+                     last_transfer_object_element +
+                  "</sipTransferObject>\n");
+
          }
          else
          {

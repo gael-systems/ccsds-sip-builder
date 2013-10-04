@@ -24,6 +24,7 @@ import org.ccsds.pais.xml.SipConstraints.SipContentType;
 import org.ccsds.pais.xml.SipConstraints.SipContentType.AuthorizedDescriptor;
 import org.ccsds.pais.xml.TransferObjectGroupType;
 import org.ccsds.pais.xml.TransferObjectTypeDescriptor;
+import org.ccsds.pais.xml.TransferObjectTypeDescriptor.Identification;
 
 import fr.gael.ccsds.sip.xml.Descriptor;
 
@@ -448,6 +449,34 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
     */
    public void setTypeDescriptor(TransferObjectTypeDescriptor descriptor)
    {
+      // Check input parameter
+      if (descriptor == null)
+      {
+         throw new NullPointerException("Cannot hash null type descriptor.");
+      }
+
+      // Get Identification element
+      Identification identification = descriptor.getIdentification();
+
+      if (identification == null)
+      {
+         throw new NullPointerException("Cannot hash a type descriptor " +
+            "with no identification.");
+      }
+
+      // Get descriptor ID
+      String identifier = identification.getDescriptorID();
+      
+      if ((identifier == null) ||
+          (identifier.length() <= 0))
+      {
+         throw new NullPointerException("Cannot hass a descriptor with a " +
+            "null or zero-length identifier.");
+      }
+
+      // Trim identifier to avoid leading or trailing white-spaces
+      identifier = identifier.trim();
+
       // Create hash map if not already done
       if (this.typeDescriptors == null)
       {
@@ -456,8 +485,7 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
       }
 
       // Hash descriptor in the map according to the descriptor ID
-      this.typeDescriptors.put(
-            descriptor.getIdentification().getDescriptorID(), descriptor);
+      this.typeDescriptors.put(identifier, descriptor);
 
    } // End setTypeDescriptor(TransferObjectTypeDescriptor)
 
@@ -657,7 +685,7 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
 
          // Check descriptor identifier
          if ((descriptor_id == null) ||
-               (descriptor_id.length() <= 0))
+             (descriptor_id.length() <= 0))
          {
             logger.error("Invalid authorized descriptor ID (null or " +
                "zero length) for SIP content type \"" +
@@ -667,7 +695,7 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
 
          // Get descriptor from ID
          TransferObjectTypeDescriptor descriptor =
-               this.getTypeDescriptor(descriptor_id);
+               this.getTypeDescriptor(descriptor_id.trim());
 
          // Check descriptor
          if (descriptor == null)
@@ -682,10 +710,22 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
          List<ContentUnit> content_units =
                this.getContentUnits(descriptor);
 
+         // Flag last transfer object
+         if ((content_units != null) && (content_units.size() > 0))
+         {
+            ContentUnit last_content_unit = 
+               content_units.get(content_units.size() - 1);
+
+            if (last_content_unit != null)
+            {
+               last_content_unit.setLastTransferObject(true);
+            }
+         }
+
          // Compute number of required SIPs to hold the units of this type
          long required_sip_number = computeRequiredParentNumber(
                authorized_descriptor.getOccurrence(), content_units);
-         
+
          // Complete list of SIPs if not sufficient
          while (required_sip_number > sips.size())
          {

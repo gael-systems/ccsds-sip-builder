@@ -164,13 +164,13 @@ public class Sip extends Vector<ContentUnit>
                   + "   <sipSequenceNumber>"
                   + sequence_number + "</sipSequenceNumber>\n"
                   + "</sipGlobalInformation>\n"));
-// TODO: the string above shall be extracted from the present class
+
       ph.getEnvironmentInfo().add(ei);
       xfdu.setPackageHeader(ph);
 
       // Add content units and collect data objects
       ArrayList<DataObject> data_objects = new ArrayList<DataObject>();
-      
+
       for (ContentUnit child_unit : this)
       {
          xfdu.add(child_unit.toXfduContentUnit(index_manager, data_objects,
