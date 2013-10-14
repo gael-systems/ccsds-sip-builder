@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
+import org.ccsds.pais.xml.TransferObjectTypeDescriptor;
+import org.ccsds.pais.xml.TransferObjectTypeDescriptor.Identification;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 import fr.gael.ccsds.sip.archive.ArchiveFactory;
@@ -150,12 +152,41 @@ public class Sip extends Vector<ContentUnit>
       final PackageHeader ph =
          new PackageHeader(sip_identifier, vi, new ArrayList<EnvironmentInfo>());
 
+      // Get producer source ID
+      String source_id = null;
+      
+      for (TransferObjectTypeDescriptor type_descriptor :
+              this.project.getTypeDescriptors())
+      {
+         Identification identification =
+            type_descriptor.getIdentification();
+         
+         if ((identification != null) &&
+             (identification.getProducerSourceID() != null))
+         {
+            source_id = identification.getProducerSourceID().trim();
+            break;
+         }
+         else
+         {
+            logger.warn("One descriptor has no Identification or no " +
+               "Producer Source ID!");
+         }
+      }
+      
+      if (source_id == null)
+      {
+         logger.warn("No descriptor contains a valid Producer Source ID!");
+         source_id = "UNSPECIFIED_SOURCE";
+      }
+
+      // Build environment info
       final EnvironmentInfo ei = new EnvironmentInfo(null, new Extension(
             "<sipGlobalInformation "
                   + " xmlns=\"urn:ccsds:schema:pais:1\">\n"
                   + "   <sipID>" + sip_identifier + "</sipID>\n"
                   + "   <producerSourceID>"
-                  + this.project.getTypeDescriptors().iterator().next().getIdentification().getProducerSourceID() + "</producerSourceID>\n"
+                  + source_id + "</producerSourceID>\n"
                   + "   <producerArchiveProjectID>"
                   + this.project.getConstraints().getProducerArchiveProjectID()
                   + "</producerArchiveProjectID>\n"
