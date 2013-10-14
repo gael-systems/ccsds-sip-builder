@@ -756,18 +756,6 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
             }
          }
 
-         // Flag last transfer object
-         if ((content_units != null) && (content_units.size() > 0))
-         {
-            ContentUnit last_content_unit = 
-               content_units.get(content_units.size() - 1);
-
-            if (last_content_unit != null)
-            {
-               last_content_unit.setLastTransferObject(true);
-            }
-         }
-
          // Compute number of required SIPs to hold the units of this type
          long required_sip_number = computeRequiredParentNumber(
                authorized_descriptor.getOccurrence(), content_units);
@@ -886,7 +874,8 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
       ArrayList<ContentUnit> content_units = new ArrayList<ContentUnit>();
 
       // Get collector associated to the current group type
-      logger.info("Collecting files from \"" + base_directory.getPath() + "\"");
+      logger.info("Collecting files from \"" +
+         base_directory.getName() + "\"");
 
       Collector collector = this.getCollector(group_type.getGroupTypeID());
       
@@ -907,7 +896,7 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
       for (String subdirectory_path : collected_files)
       {
          // Log loop
-         logger.info("Processing collected file: " + subdirectory_path);
+         logger.debug("Processing collected file: " + subdirectory_path);
 
          // Compute contextual base directory
          File context_base_directory = null;
@@ -1104,7 +1093,8 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
       if (collector != null)
       {
          logger.info("Collecting files from \"" +
-            collector.resolveBaseDirectory(base_directory.getAbsoluteFile()) + "\"");
+            collector.resolveBaseDirectory(
+                  base_directory.getAbsoluteFile()).getName() + "\"");
          collected_files = collector.getIncludedFiles(base_directory);
       }
 
@@ -1138,7 +1128,8 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
       for (String file_path : collected_files)
       {
          // Log loop
-         logger.info("Processing collected file: \"" + file_path + "\"...");
+         logger.debug("Processing collected file: \"" + file_path +
+               "\"...");
 
          // Get file abstract absolute path
          File file = null;

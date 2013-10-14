@@ -207,6 +207,35 @@ public class ContentUnit extends Vector<ContentUnit>
       this.lastTransferObject = lastTransferObject;
    }
 
+   public long getSize()
+   {
+      // Initialize the output total size
+      long size = 0;
+
+      // Get the total size of all data objects referenced by this unit
+      if ((this.dataObjectFiles != null) && (this.dataObjectFiles.size() > 0))
+      {
+         for (DataObjectFile current_file : this.dataObjectFiles)
+         {
+            File abstract_file = current_file.getFile();
+            
+            if (abstract_file != null)
+            {
+               size += abstract_file.length();
+            }
+         }
+      }
+
+      // Add the size of the children (if any)
+      for (ContentUnit child : this)
+      {
+         size += child.getSize();
+      }
+
+      // return output size
+      return size;
+   }
+
    public esa.xfdu.map.ContentUnit toXfduContentUnit(IndexManager index_manager,
          List<DataObject> data_objects, String package_path)
    {

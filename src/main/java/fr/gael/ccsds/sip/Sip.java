@@ -115,7 +115,7 @@ public class Sip extends Vector<ContentUnit>
       // Remove directory if already existing
       if (stage_package.exists())
       {
-         logger.warn("Directory \"" + stage_package.getPath()
+         logger.warn("Directory \"" + stage_package.getName()
                + "\" already exists: removing...");
          recursiveDeleteFile(stage_package);
       }
@@ -123,7 +123,7 @@ public class Sip extends Vector<ContentUnit>
       // Create directory
       if (stage_package.mkdirs() == true)
       {
-         logger.info("Directory \"" + stage_package.getPath() + "\" created");
+         logger.info("Directory \"" + stage_package.getName() + "\" created");
       }
       else
       {
@@ -135,7 +135,7 @@ public class Sip extends Vector<ContentUnit>
 
       final String xfdumanifest = new File(stage_package, "xfdumanifest.xml").getPath();
 
-      logger.info("Creating xfdu manifest \"" + xfdumanifest + "\".");
+      logger.info("Creating xfdu manifest...");
       final Xfdu xfdu = new Xfdu(xfdumanifest, null, null, null, null);
 
       // Update XFDU namespace
