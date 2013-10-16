@@ -143,7 +143,7 @@ public class Sip extends Vector<ContentUnit>
       // Update XFDU namespace
       final Namespace ns = xfdu.getNamespace();
       final Namespace sipns = new Namespace();
-      sipns.bind("sip", "urn:ccsds:schema:pais:1");
+      sipns.bind("pais", "urn:ccsds:schema:pais:1");
       ns.addNamespaces(sipns);
 
       final VolumeInfo vi = new VolumeInfo("1.0", null);
