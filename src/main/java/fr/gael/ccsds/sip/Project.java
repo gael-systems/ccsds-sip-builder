@@ -299,12 +299,12 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
    {
       // Get maximum occurrence
       long maximum_occurrence = 0;
-   
+
       if ((occurrence != null) && (occurrence.getMaxOccurrence() != null))
       {
          // Get occurrence
          maximum_occurrence = occurrence.getMaxOccurrence().longValue();
-   
+
          // Check occurrence
          if (maximum_occurrence <= 0)
          {
@@ -313,36 +313,36 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
             maximum_occurrence = 0;
          }
       }
-      
+
       // Get number of children
       int children_count = 0;
-   
+
       if (children != null)
       {
          children_count = children.size();
       }
-   
+
       // Case of no children: no Content Unit is required
       if (children_count <= 0)
       {
          return 0;
       }
-   
+
       // Case of unlimited occurrences: only one Content Unit is required
       if (maximum_occurrence <= 0)
       {
          return 1;
       }
-   
+
       // Case of children count lower than maximum: one unit required
       if (children_count <= maximum_occurrence)
       {
          return 1;
       }
-   
+
       // Case of limited occurrences: return the minimum number of units
-      return children_count / maximum_occurrence;
-   
+      return (long)Math.ceil(children_count / (double)maximum_occurrence);
+
    } // End computeRequiredContentUnitNumber(OccurrenceType,
 
    /**
@@ -375,30 +375,30 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
             maximum_occurrence = 0;
          }
       }
-   
+
       // Prepare a counter among children units
       long content_unit_counter = 0;
-   
+
       // Loop among children units
       for (T child : children)
       {
          // Compute the index of the target Transfer Object Unit
          int parent_unit_index = 0;
-   
+
          if (maximum_occurrence > 0)
          {
             parent_unit_index = (int)(content_unit_counter /
                   maximum_occurrence);
          }
-   
+
          // Append current unit
          parents.get(parent_unit_index).add(child);
-   
+
          // Update current child counter
          content_unit_counter += 1;
-   
+
       } // Loop among content units
-   
+
    } // End dispatchObjects(List<ContentUnit>, OccurrenceType,
 
    /**
