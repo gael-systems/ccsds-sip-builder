@@ -1,7 +1,8 @@
 ESA SIP Builder
 ---------------
 
-The Data Request Broker - DRB API(r) is an application programming interface for
+The SIP Builder is an applicatio... to be continued
+
 reading, writing and processing heterogeneous data. DRB API(r) is a software
 abstract layer that helps developers programming applications as independently
 as possible from the way data are encoded within files. Indeed, DRB API(r) is 
