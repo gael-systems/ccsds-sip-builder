@@ -123,7 +123,7 @@
                   <configuration>
                      <packageName>org.ccsds.pais.xml.sip</packageName>
                      <schemaDirectory>${pais.schema.dir}</schemaDirectory>
-                     <schemaFiles>ccsds-pais-sip-model.xsd</schemaFiles>
+                     <schemaFiles>ccsds-pais-common-types.xsd,ccsds-pais-sip-model.xsd</schemaFiles>
                      <staleFile>${project.build.directory}/generated-sources/.sipModelStaleFag</staleFile>
                      <clearOutputDir>false</clearOutputDir>
                   </configuration>
