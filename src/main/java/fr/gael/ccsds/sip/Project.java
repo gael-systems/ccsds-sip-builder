@@ -105,21 +105,26 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
          // Read descriptors
          if (project.getDescriptors() != null)
          {
+            // Get an absolute abstract file to avoid any parent issue
+            File project_absolute_file = project_file.getAbsoluteFile();
+
             // Get descriptor base directory
-            File descriptors_base_directory = project_file.getParentFile();
-            
+            File descriptors_base_directory =
+                    project_absolute_file.getParentFile();
+
             if ((project.getDescriptors() != null) &&
                 (project.getDescriptors().getBaseDirectory() != null))
             {
                descriptors_base_directory = new File(
                      project.getDescriptors().getBaseDirectory());
-               
+
                if (!descriptors_base_directory.isAbsolute())
                {
                   descriptors_base_directory =
-                     new File("" + project_file.getParentFile().
-                           getAbsolutePath() + File.separator +
-                           descriptors_base_directory.getPath());
+                     new File("" +
+                        project_absolute_file.getParentFile().
+                        getAbsolutePath() + File.separator +
+                        descriptors_base_directory.getPath());
                }
             }
 
