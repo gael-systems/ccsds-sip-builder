@@ -26,14 +26,15 @@
       </repository>
    </repositories>
 
-   <!-- Valid only for deploying to Gael's internal repositories
-   <parent>
-      <groupId>fr.gael</groupId>
-      <artifactId>maven</artifactId>
-      <version>1-0-rc-5</version>
-      <relativePath/>
-   </parent>
-   -->
+   <distributionManagement>
+      <repository>
+         <uniqueVersion>true</uniqueVersion>
+         <id>gael-main</id>
+         <name>GAEL Main Repository</name>
+         <url>http://repository.gael.fr:8081/nexus/content/repositories/releases</url>
+         <layout>default</layout>
+      </repository>
+   </distributionManagement>
 
    <inceptionYear>2012</inceptionYear>
 
