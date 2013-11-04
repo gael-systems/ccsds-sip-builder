@@ -123,12 +123,12 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
          // Save the input file
          project.setConfigurationFile(project_file);
 
+         // Get an absolute abstract file to avoid any parent issue
+         File project_absolute_file = project_file.getAbsoluteFile();
+
          // Read descriptors
          if (project.getDescriptors() != null)
          {
-            // Get an absolute abstract file to avoid any parent issue
-            File project_absolute_file = project_file.getAbsoluteFile();
-
             // Get descriptor base directory
             File descriptors_base_directory =
                     project_absolute_file.getParentFile();
@@ -217,10 +217,12 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
             // Complete base directory with current directory if 
             if (!base_directory.isAbsolute())
             {
-               base_directory = new File(new File(".").getAbsolutePath() +
-                     File.separator + base_directory.getPath());
+               base_directory = new File("" +
+                  project_absolute_file.getParentFile().
+                     getAbsolutePath() + File.separator +
+                     base_directory.getPath());
             }
-            
+
             // Set directory
             project.setCollectorsBaseDirectory(base_directory);
          }
