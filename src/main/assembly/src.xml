@@ -22,23 +22,36 @@
 <assembly
    xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0
+      http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 
-  <id>bin</id>
+   <id>src</id>
 
-  <formats>
-    <format>jar</format>
-  </formats>
+   <formats>
+      <format>zip</format>
+   </formats>
 
-  <includeBaseDirectory>false</includeBaseDirectory>
-
-  <dependencySets>
-    <dependencySet>
-      <outputDirectory>/</outputDirectory>
-      <useProjectArtifact>true</useProjectArtifact>
-      <unpack>true</unpack>
-      <scope>runtime</scope>
-    </dependencySet>
-  </dependencySets>
-
+   <fileSets>
+      <fileSet>
+         <directory>${project.basedir}</directory>
+         <includes>
+            <include>README*</include>
+            <include>LICENSE*</include>
+            <include>COPYING*</include>
+         </includes>
+         <useDefaultExcludes>true</useDefaultExcludes>
+         <filtered>true</filtered>
+      </fileSet>
+      <fileSet>
+         <directory>${project.basedir}</directory>
+         <includes>
+            <include>pom.xml</include>
+         </includes>
+         <useDefaultExcludes>true</useDefaultExcludes>
+      </fileSet>
+      <fileSet>
+         <directory>${project.build.sourceDirectory}</directory>
+         <useDefaultExcludes>true</useDefaultExcludes>
+      </fileSet>
+   </fileSets>
 </assembly>

@@ -167,10 +167,8 @@
                </archive>
                <descriptors>
                   <descriptorRef>src/main/assembly/bin.xml</descriptorRef>
+                  <descriptorRef>src/main/assembly/src.xml</descriptorRef>
                </descriptors>
-               <descriptorRefs>
-                  <descriptorRef>src</descriptorRef>
-               </descriptorRefs>
                <finalName>sip-builder-${project.version}-${maven.build.timestamp}</finalName>
                <appendAssemblyId>true</appendAssemblyId>
             </configuration>

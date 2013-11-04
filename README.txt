@@ -1,86 +1,41 @@
-ESA SIP Builder
----------------
+SIP Builder v${project.version}
+------------------
 
-The SIP Builder is an applicatio... to be continued
+The goal of the SIP Builder is to generate XFDU/SIP packages from input data
+files and in conformance to a set of descriptors and constraints files
+following the Producer–Archive Interface Specification (PAIS) standard under
+development of the Consultative Committee for Space Data Systems (CCSDS).
 
-reading, writing and processing heterogeneous data. DRB API(r) is a software
-abstract layer that helps developers programming applications as independently
-as possible from the way data are encoded within files. Indeed, DRB API(r) is 
-based on a uniform data model that makes the handling of supported data formats 
-much easier. 
-
-Programmed in Java and embedding W3C standards, DRB API(r) provides a portable 
-solution that remains powerful even on large data collections. Initially developed 
-and well-tried for accessing satellite imagery for European Space Agency, DRB API(r)
-is the result of more than 15 years of expertise and know-how in data access 
-programming. Thus, DRB API(r) provides a complete set of tools to solve simple and
-complex data access issues with minimum engineering efforts.
-
-DRB API(r) comes up with an XQuery engine that allows selecting and computing data
-across targeted files. It also provides an XML Schema validation facility that runs 
-over supported data. DRB API(r) embeds implementations for accessing local file
-systems, HTTP and FTP remote servers and Jar, Tar or ZIP files. It also
-includes implementations that accesses XML documents and binary files when
-these last are described through XML Schema documents. Extra implementations
-are available in DRB API(r) extensions or can be programmed by any developers.
+The SIP Builder is an Open Source software aiming at verifying parts of the
+PAIS standard, at serving as PAIS implementation alternative required for
+the CCSDS recommendation process and, as far as possible, providing the PAIS
+users with a handy tool for approaching the standard. The SIP Builder is a
+prototype that should not be considered as an operational software. It may
+change drastically from a version to another without special notification.
 
 
-DISTRIBUTION STRUCTURE
-----------------------
+SOURCE DISTRIBUTION STRUCTURE
+-----------------------------
 
-    |-> docs                    <-- (self installer distribution only)
-    |   |-> java                <-- Java API documentation
-    |      |-> index.html       <-- Starting HTML page
-    |
-    |-> lib                     <-- (binary or self installer distribution only)
-    |   |-> java                <-- DRB and dependent Java Jar archives
-    |
     |-> src                     <-- (source distribution only)
     |   |-> main
+    |       |-> assembly        <-- Maven assembly descriptors
     |       |-> java            <-- Java sources
-    |       |-> javacc          <-- Java Compiler Compiler sources
-    |       |-> javadoc         <-- Java Documentation Package Headers
     |       |-> resources       <-- Resources to be included in the output Jar
-    |       |-> checkstyle      <-- Definitions for verifying coding standard
     |
     |-> README.txt              <-- Hereby document
-    |-> COPYING*                <-- License contents
-
-
-DISTRIBUTION REPOSITORY
------------------------
-
-DRB API software distributions are made available from http://www.gael.fr/drb
-Web site.
+    |-> COPYING*                <-- GNU LGPL License
 
 
 SOFTWARE REQUIREMENTS FOR API 
 -----------------------------
 
-FOR API USERS 
-
-   - Java 1.5.0 SDK (http://java.sun.com) or higher installed on target machine 
-
-FOR API CONTRIBUTORS
-
-   - Java 1.5.0 SDK (http://java.sun.com)
-   - Maven 2.x (http://www.maven.apache.org)
-   - Internet connection if building plugins are not available in Maven local
-     repository. 
-
-
-
-BINARY INSTALLATION
--------------------
-
-1. Download API binaries:
-
-   drb-[M]-[m]-[t]-bin.tar.gz  or  drb-[M]-[m]-[t]-bin.zip
-
-2. Extract archive content to the installation directory e.g. /usr/local/ for
-   UNIX systems or c:\Program Files\ for Windows, etc.
-
-3. Test installation. 
+   - Java JDK 6 or higher
+     (http://www.oracle.com/technetwork/java/javase/downloads)
+   - Maven 3.0 or higher
+     (http://www.maven.apache.org)
+   - Internet connection if third party dependencies are not available in
+     Maven local repository.
 
 
 SOURCES INSTALLATION AND BUILDING
@@ -88,52 +43,37 @@ SOURCES INSTALLATION AND BUILDING
 
 1. Download API sources:
 
-   drb-[M]-[m]-[t]-src.tar.gz  or  drb-[M]-[m]-[t]-src.zip
+   sip-builder-[M].[m].[b]-src.zip
 
-2. Extract archive content to the installation directory e.g. your home directory.
+2. Extract archive content to the installation directory.
 
-3. Move to the installation home directory in a command prompt environment e.g.
+3. Move to the extracted directory in a command prompt environment e.g.
    DOS, or any UNIX terminal.
 
-4. Build API Jar archive with the following command:
+4. Build the software binaries and assemblies with the following command:
 
    mvn package
 
-The previous command should have built DRB as drb-SNAPSHOT.jar file in a
-"target" sub-directory. For further information on Maven building commands see
-Maven (http://maven.apache.org)
-
-
-TEST API INSTALLATION
----------------------
-
-1. Test the installation by running the following command:
-
-   java -jar [DRB_INSTALLATION_HOME]/lib/java/drb-[M]-[m]-[t].jar --version
-
-2. For using DRB, configure your CLASSPATH or your IDE to reference the following
-   Java Jar archive:
-
-   [DRB_INSTALLATION_HOME]/lib/java/drb-[M]-[m]-[t].jar
-
-3. It is not necessary to reference the dependencies accompanying the DRB Jar
-   since it references them automatically.
+The previous command are built in a "target" sub-directory. For further
+information on Maven building commands see Maven (http://maven.apache.org)
 
 
 USE AND COPYRIGHT
 -----------------
-Data Request Broker - DRB API
-Copyright (C) 2001,2002,2003,2004,2005,2006,2007,2008,2009 GAEL Consultant
+SIP Builder
+Copyright (C) 2012,2013 GAEL Systems
+Copyright (C) 2012,2013 ESA
 
-Data Request Broker - DRB API software is licensed under the terms and
-conditions laid down from GNU Lesser General Public License (LGPL) v3 license
-which are reminded in COPYING.LESSER file included in hereby distribution.
-Permission to use, copy, modify, distribute, and sell this software and its
-documentation for any purpose is hereby granted without fee, provided that
-(i) the above copyright notices and the GNU LGPL permission notice appear in
-all copies of the software and related documentation, and (ii) the names of
-GAEL Consultant may not be used in any advertising or publicity relating to the
-software without the specific, prior written permission of GAEL Consultant. 
+SIP Builder software is licensed under the terms and conditions laid down
+from GNU Lesser General Public License (LGPL) v3 license which are reminded
+in COPYING.LESSER file included in hereby distribution. Permission to use,
+copy, modify, distribute, and sell this software and its documentation for
+any purpose is hereby granted without fee, provided that (i) the above
+copyright notices and the GNU LGPL permission notice appear in all copies of
+the software and related documentation, and (ii) the names of GAEL Systems
+and ESA may not be used in any advertising or publicity relating to the
+software without the specific, prior written permission of GAEL Systems or
+ESA. 
 
 THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, EXPRESS,
 IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
