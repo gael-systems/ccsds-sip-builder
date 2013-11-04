@@ -265,6 +265,27 @@ public class SipBuilder
                target_directory = new File(".");
             }
          }
+         
+         // Create output directory if required
+         if (!target_directory.exists())
+         {
+            if (!target_directory.mkdirs())
+            {
+               logger.fatal("Cannot create output directory \"" +
+                  target_directory + "\"!");
+               System.exit(1);
+            }
+            else
+            {
+               logger.info("Output directory \"" +
+                     target_directory + "\" created!");
+            }
+         }
+         else
+         {
+            logger.info("Output directory \"" +
+                  target_directory + "\" exists!");
+         }
 
          // Get output packaging (if not provided in parameter)
          if (packaging == null)
