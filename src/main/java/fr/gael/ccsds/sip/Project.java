@@ -771,8 +771,9 @@ public class Project extends fr.gael.ccsds.sip.xml.Project
             if (!occurrence_error)
             {
                logger.info("The " + content_units.size() +
-                     " object(s) collected for \"" + descriptor_id +
-                     "\" type is included in the required range.");
+                  " object(s) collected for \"" + descriptor_id +
+                  "\" type is included in the authorized range " +
+                  "of occurrences.");
             }
          }
 

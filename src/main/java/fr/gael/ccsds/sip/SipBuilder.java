@@ -539,7 +539,7 @@ public class SipBuilder
                }
 
                // Get maximum size (if provided)
-               Float max_size = type_size.getMinSize();
+               Float max_size = type_size.getMaxSize();
 
                if (max_size != null)
                {
@@ -564,8 +564,10 @@ public class SipBuilder
                       (current_size < min_size.doubleValue()))
                   {
                      logger.error("A Transfer Object has a " +
-                        current_size + " " + units_type + " size, lower " +
-                        "than the minimum " + min_size.floatValue() + " " +
+                        String.format("%.1f", current_size) + " " +
+                        units_type + " size, lower " +
+                        "than the minimum " + String.format("%.1f",
+                        min_size.floatValue()) + " " +
                         units_type + " required by the \"" + descriptor_id +
                         "\" type descriptor.");
                   }
@@ -575,11 +577,12 @@ public class SipBuilder
                       (current_size > max_size.doubleValue()))
                   {
                      logger.error("A Transfer Object has a " +
-                           current_size + " " + units_type + " size, " +
+                           String.format("%.1f", current_size) + " " +
+                           units_type + " size, " +
                            "greater than the maximum " +
-                           max_size.floatValue() + " " + units_type +
-                           " allowed by the \"" + descriptor_id +
-                           "\" type descriptor.");
+                           String.format("%.1f", max_size.floatValue()) +
+                           " " + units_type + " allowed by the \"" +
+                           descriptor_id + "\" type descriptor.");
                   }
 
                }
