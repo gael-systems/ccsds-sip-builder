@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:pais="urn:ccsds:schema:pais:1"
+   targetNamespace="urn:ccsds:schema:pais:1"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+
+  <xsd:include schemaLocation="ccsds-pais-common-types.xsd"/>
+
+  <xsd:element name="transferObjectTypeDescriptor">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="identification">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element supporting the unique identification of the
+               Transfer Object Type Descriptor within the Producer-Archive
+               Project.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="descriptorModelID" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the Transfer Object Type Descriptor Model
+                     upon which this Descriptor is based.  It may be the
+                     Descriptor Model as given in the standard or it may be a
+                     specialized version.  It shall be unique across the
+                     Producer-Archive Project and shall be provided by the
+                     Archive. The standard value for this ID, when no
+                     specialization has been employed, is 'CCSD0014'. When
+                     specialization has been employed, the value for the
+                     Descriptor Model ID should be agreed between the Producer
+                     and the Archive.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="descriptorModelVersion" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the version of the Descriptor Model. This
+                     allows tracking updates to the identified Descriptor
+                     Model. The standard value for this ID, when the Descriptor
+                     Model ID is 'CCSD0014' and no revisions to this standard
+                     model have occurred, is 'V1.0'. When specialization has
+                     been employed, the value for the Descriptor Model Version
+                     shall be agreed between the Producer and the Archive.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="descriptorID" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of this Descriptor within the Producer-Archive
+                     Project. Uniqueness shall be checked by the Archive. This
+                     identifier can be used by a relationship element to refer
+                     to this Transfer Object Type.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="producerSourceID" type="xsd:string"
+                 minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of the Producer Source sufficient to enable the
+                     Archive to identify the origin of the SIP and to send an
+                     acknowledgement. There may be multiple Producer Sources
+                     sending SIPs to the Archive within a given
+                     Producer-Archive Project. The form of the Producer Source
+                     ID needs agreement between Producer and Archive. If
+                     specified, only those Producer Sources identified here may
+                     include Transfer Objects, of this Transfer Object Type, in
+                     SIPs.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="any" type="pais:extensionType" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="description">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element giving a high level description of the Transfer
+               Object Type.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="transferObjectTypeTitle" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Extensive descriptive phrase used as the name of the
+                     Transfer Object Type.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="transferObjectTypeDescription"
+                 type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Explanatory text describing the meaning of the Transfer
+                     Object Type.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="transferObjectTypeOccurrence"
+                 type="pais:occurrenceType">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Number of Transfer Object Type instances (Transfer
+                     Objects) of this Transfer Object Type. This may be
+                     expressed as one, or more, or as a range of values. This
+                     number may not be known at the time of descriptor
+                     creation. In the case of a unique value, minOccurrence =
+                     maxOccurrence = value.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="transferObjectTypeSize" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Characterization of the size range for Transfer Objects of
+                     this type. The size range may not be known at the time of
+                     descriptor creation and therefore the corresponding
+                     element may be omitted.
+                  </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="minSize" type="xsd:float" minOccurs="0"/>
+                    <xsd:element name="maxSize" type="xsd:float" minOccurs="0"/>
+                    <xsd:element name="unitsType" minOccurs="0">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="KB"/>
+                          <xsd:enumeration value="MB"/>
+                          <xsd:enumeration value="GB"/>
+                          <xsd:enumeration value="TB"/>
+                          <xsd:enumeration value="PB"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="namePreservationRule" type="xsd:string"
+                 minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Specification from the Producer describing how to
+                     recognize and/or create the preservable name to be given
+                     to each Data Object. It shall apply to all the Data
+                     Objects under this Transfer Object Type. It may assist the
+                     Producer in creating the SIPs and it may assist the
+                     Archive in preserving appropriate information.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="any" type="pais:extensionType" minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="relation">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element that identifies the collection to which the
+               Transfer Objects under this Descriptor are a part, and
+               optionally that specify directional relationships between these
+               Transfer Objects and other Data Objects, Transfer Objects,
+               Transfer Object Groups and Collections. These relationships are
+               specified using identifiers as given within the Descriptors of
+               the MOT.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="parentCollection" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Identifier of a Collection Descriptor that provides an
+                     aggregation view that includes this Transfer Object Type.
+                     The highest level Descriptor in the MOT shall be a
+                     Collection Descriptor.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="association" type="pais:associationType"
+                 minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Parent element used to describe a relationship of the
+                     Transfer Objects under this Descriptor to the objects
+                     having the identifier given by the targetID element.
+                     (Objects include Transfer Objects, Transfer Object Groups,
+                     Data Objects, and Collections). These are transversal
+                     links specifying the type of relation.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="any" type="pais:extensionType"
+                minOccurs="0">
+                <xsd:annotation>
+                  <xsd:documentation>
+                     Allows a conforming XML document to have any additional
+                     XML elements at this point in its structure.
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="groupType" type="pais:transferObjectGroupType"
+           maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation>
+               Parent element that identifies one or several Group Types. A
+               Group Type is a set of characteristics describing zero or more
+               Data Object Types, even complex Data Objects Types made up of
+               several parts. The Transfer Object Group Type may contain
+               additional Transfer Object Group Types in support of complex
+               structures such as directory structures.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="any" type="pais:extensionType" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>
+               Allows a conforming XML document to have any additional XML
+               elements at this point in its structure.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="dataObjectType">
+    <xsd:sequence>
+      <xsd:element name="dataObjectTypeID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             Identifier of the Data Object Type. It shall be unique across the
+             Producer-Archive Project. Uniqueness shall be checked by the
+             Archive. This identifier can be used by a relationship element to
+             refer to this Data Object Type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeDescription" type="xsd:string"
+         minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Explanatory text describing the meaning of this Data Object Type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeOccurrence"
+        type="pais:occurrenceType">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element supporting the number of Data Object Type instances
+             (Data Objects) of this Data Object Type. This may be expressed as
+             one, or more, or as a range of values. This number may not be
+             known at the time of descriptor creation and instantiation. In the
+             case of a unique value, then minOccurrence = maxOccurrence =
+             value.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeFileOccurrence"
+        type="pais:occurrenceType" minOccurs="0">
+         <xsd:annotation>
+            <xsd:documentation>
+               Parent element supporting the number of file instances of each
+               Data Object Type instance. This may be expressed as one, or
+               more, or as a range of values. This number may not be known at
+               the time of descriptor creation and instantiation. In the case
+               of a unique value, then minOccurrence = maxOccurrence = value.
+               The absence of this element implies there shall be one file
+               instance.
+            </xsd:documentation>
+         </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeFormat" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element supporting the identification of the format of this
+             Data Object Type in the Transfer Object Group Type using a MIME
+             type or a registration mechanism.
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mimeType" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                   MIME type for the Data Object Type (e.g.,
+                   "application/octet-stream" MIME type as documented by the
+                   Internet Engineering Task Force (IETF)).
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="registrationInformation" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                   Parent element supporting information used to identify the
+                   format of this Data Object Type as registered with a
+                   specified registration authority.
+                </xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="registrationAuthority" type="xsd:string"
+                     minOccurs="0">
+                    <xsd:annotation>
+                      <xsd:documentation>
+                         Identifier of the organization or system that has
+                         registered and holds the format description
+                         (e.g.,IETF, CCSDS Control Authority(CA)).
+                      </xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="registeredID" type="xsd:string"
+                     minOccurs="0">
+                    <xsd:annotation>
+                      <xsd:documentation>
+                         Identifier of the format description within the
+                         context of the registration authority (e.g., NSSD0145
+                         under CCSDS CA).
+                      </xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeEncoded" type="pais:encodingType"
+         minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Characterization of how a Data Object has been encoded. May be
+             used to describe possible nested encodings, for example a Data
+             Object encoded in a zip file and then encoded in a binhex file.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectTypeAssociation"
+        type="pais:associationType" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element supporting the description of a relationship of the
+             Data Objects to the objects having the identifier given by the
+             targetID element (objects include Data Objects, Transfer Objects,
+             Transfer Object Groups, and Collections). These are transversal
+             links specifying the type of relation.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="any" type="pais:extensionType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Allows a conforming XML document to have any additional XML
+             elements at this point in its structure.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="transferObjectGroupType">
+    <xsd:sequence>
+      <xsd:element name="groupTypeID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             Identifier of a Transfer Object Group Type that must be used to
+             distinguish this Group Type from other Group Types. It shall be
+             unique within a given Producer-Archive Project. Uniqueness is
+             ensured by the Archive. This identifier may be used by a
+             relationship element to refer to this Transfer Object Group Type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupTypeDescription" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Explanatory text describing the meaning of this Transfer Object
+             Group Type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupTypeStructureName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             A name for the type of Transfer Object Group Type, such as
+             directory, set, sequence, undescribed, or other name not included
+             in this list.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupTypeEncoded"
+        type="pais:encodingType" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Characterisation of how groups of this type are encoded. It may be
+             used iteratively to describe possible nested encodings and in
+             which case they are described in the order of application. The
+             result of encoding will be a single Data Object. The possible
+             presence of Data Object Type and any additional Transfer Object
+             Group Type specifications under this Transfer Object Group Type
+             specification is understood to comprise a detailed model of this
+             group after the encoding has been reversed. Validation of the
+             encoded content may not be possible because the resulting data
+             structure will not carry any of the identifiers associated with
+             the detailed modeling of this group.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupTypeOccurrence" type="pais:occurrenceType"
+         minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element supporting the number of Transfer Object Group
+             instances of this Transfer Object Group Type. This may be
+             expressed as one, or more, or as a range of values. This number
+             may not be known at the time of descriptor creation. In the case
+             of a unique value, then minOccurrence = maxOccurrence = value.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupTypeAssociation" type="pais:associationType"
+         minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element used to describe a relationship of the Transfer
+             Object Groups to the objects having the identifier given by the
+             targetID element (objects include Transfer Objects, Transfer
+             Object Groups, Data Objects, and Collections). These are
+             transversal links specifying the type of relation.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dataObjectType" type="pais:dataObjectType"
+         minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Parent element supporting a description of the Data Object Type. A
+             Data Object Type describes one or more Data Objects (instances).
+             There may be multiple Data Object Types within a Transfer Object
+             Group Type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="groupType" type="pais:transferObjectGroupType"
+         minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="any" type="pais:extensionType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+             Allows a conforming XML document to have any additional XML
+             elements at this point in its structure.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="encodingType">
+    <xsd:sequence>
+      <xsd:element name="encodingName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             A name for the type of encoding, such as zip, tar, or other name
+             not included in this list.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="encodingDescription" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             Description or reference to the type of the encoding.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

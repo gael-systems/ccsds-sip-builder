@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:pais="urn:ccsds:schema:pais:1"
+   targetNamespace="urn:ccsds:schema:pais:1"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+
+  <xsd:complexType name="associationType">
+    <xsd:annotation>
+      <xsd:documentation>
+         A relationship from this object type or Collection to the object type
+         or Collection having the identifier given by the targetID  element
+         (targeted object types include Transfer Object Type, Transfer Object
+         Group Type, and Data Object Type). These are transversal links
+         specifying the type of relation.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="targetID" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+             Identifier of target object types or Collection of the
+             Producer-Archive Project to which the relationship is established.
+             Possible target object types and their corresponding identifiers
+             include: (Transfer Object Type, descriptorID), (Transfer Object
+             Group Type, transferObjectGroupID), (Data Object Type,
+             dataObjectTypeID), Collection, descriptorID).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="relationDescription" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+             Description of the relationship or role played by this object type
+             or Collection with respect to the target object type or
+             Collection.
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="relationType" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                   Name for the relation (e.g., Data Entity Dictionary
+                   (DED)),Syntax, Context, Provenance, Reference, Fixity
+                   Information) played by this object type or Collection with
+                   respect to the target object type or Collection.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="relationTextualDescription" type="xsd:string"
+               minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                   Text description of the relation.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionType">
+    <xsd:annotation>
+      <xsd:documentation>
+         Allows third parties to define extensions from a namespace controlled
+         by the third party. The extension element allows one single element
+         that may be complex (and thus may incorporate additional elements).
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:any namespace="##other" processContents="lax"/>
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="occurrenceType">
+    <xsd:annotation>
+      <xsd:documentation>
+         The number of instances of this object type in each instance of its
+         containing group. This may be expressed as one, or more, or as a range
+         of values. This number may not be known at the time of specification.
+         In the case of a unique value, the Minimal Occurrence and the Maximal
+         Occurrence shall have the same value.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="minOccurrence" type="xsd:nonNegativeInteger">
+        <xsd:annotation>
+          <xsd:documentation>
+             Non negative Integer value (less than or equal to maxOccurrence).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:choice>
+        <xsd:element name="maxOccurrence" type="xsd:nonNegativeInteger">
+          <xsd:annotation>
+            <xsd:documentation>
+               Non negative Integer value (greater than or equal to
+               minOccurrence).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="maxUnknown" type="xsd:anySimpleType">
+          <xsd:annotation>
+            <xsd:documentation>Empty element when used</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>
